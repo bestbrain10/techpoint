@@ -1,0 +1,15 @@
+
+
+<div class="row" *ngFor="let post of posts | async">
+    <div class="col s12 m6">
+      <div class="card">
+        <div class="card-image">
+          <img [src]="post._embedded['wp:featuredmedia'][0].source_url">
+          <span class="card-title" style="text-shadow: 2px 2px black;" [innerHtml]="post.title.rendered"></span>
+        </div>
+        <div class="card-content">
+          <p class="truncate" [innerHTML]="post.content?.rendered"></p>
+        </div>
+      </div>
+    </div>
+  </div>
