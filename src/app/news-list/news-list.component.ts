@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
+import {  finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-news-list',
@@ -8,7 +9,11 @@ import { NewsService } from '../../services/news.service';
 })
 export class NewsListComponent implements OnInit {
 
-  posts = this.newsService.fetch({limit: 1});
+  loader = true;
+
+  posts = this.newsService.fetch({limit: 1}).pipe(
+    finalize(() => this.loader = false)
+  );
 
   constructor(
     private newsService: NewsService

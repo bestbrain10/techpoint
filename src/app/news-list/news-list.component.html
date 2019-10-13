@@ -1,15 +1,38 @@
 
+<div class="row">
 
-<div class="row" *ngFor="let post of posts | async">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img [src]="post._embedded['wp:featuredmedia'][0].source_url">
-          <span class="card-title" style="text-shadow: 2px 2px black;" [innerHtml]="post.title.rendered"></span>
+    
+        <div class="center" style="margin-top: 20%" [hidden]="!loader">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-content">
-          <p class="truncate" [innerHTML]="post.content?.rendered"></p>
+    
+    <div  *ngFor="let post of posts | async" [hidden]="loader">
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <img [src]="post._embedded['wp:featuredmedia'][0].source_url || 'data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='" style="height: 400px">
+              <span class="card-title" style="text-shadow: 2px 2px black;" [innerHtml]="post.title.rendered"></span>
+              <a 
+                class="btn-floating halfway-fab waves-effect waves-light red"
+                materialize="Tooltip"
+                data-tooltip="View in new Tab"
+                [href]="post.link"
+                target="__blank"
+              >
+                <i class="material-icons">open_in_new</i>
+            </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+</div>
